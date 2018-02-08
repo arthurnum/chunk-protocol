@@ -1,5 +1,8 @@
 extern crate chunk_protocol as lib;
 
+use lib::enums::MessageType;
+use lib::BaseMessage;
+
 #[test]
 fn hello() {
     lib::hello();
@@ -19,4 +22,16 @@ fn string_message() {
     let buf = msg.pack();
     let msg_unpacked = lib::unpack_string_message(&buf);
     assert_eq!(msg.text(), msg_unpacked.text());
+}
+
+#[test]
+fn room_status_message() {
+    let msg = lib::RoomStatusMessage::new(4, true);
+    let buf = msg.pack();
+    let msg_unpacked = lib::RoomStatusMessage::unpack(&buf);
+
+    assert_eq!(msg.id(), MessageType::RoomStatus);
+    assert_eq!(msg.id(), msg_unpacked.id());
+    assert_eq!(msg.number(), msg_unpacked.number());
+    assert_eq!(msg.is_active(), msg_unpacked.is_active());
 }
