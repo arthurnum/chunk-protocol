@@ -94,3 +94,29 @@ impl BaseMessage for RoomStatusMessage {
         RoomStatusMessage::new(number, is_active)
     }
 }
+
+pub struct AddToListenersRequestMessage {
+    _id: MessageType
+}
+
+impl AddToListenersRequestMessage {
+    pub fn new() -> Box<AddToListenersRequestMessage> {
+        Box::new(AddToListenersRequestMessage {
+            _id: MessageType::AddToListenersRequest
+        })
+    }
+}
+
+impl BaseMessage for AddToListenersRequestMessage {
+    fn id(&self) -> MessageType { self._id.clone() }
+
+    fn pack(&self) -> Vec<u8> {
+        let mut buf = Vec::with_capacity(256);
+        buf.append(&mut bincode::serialize(&self._id, Infinite).unwrap());
+        buf
+    }
+
+    fn unpack(_buf: &Vec<u8>) -> Box<AddToListenersRequestMessage> {
+        AddToListenersRequestMessage::new()
+    }
+}

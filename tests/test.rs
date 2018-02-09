@@ -35,3 +35,13 @@ fn room_status_message() {
     assert_eq!(msg.number(), msg_unpacked.number());
     assert_eq!(msg.is_active(), msg_unpacked.is_active());
 }
+
+#[test]
+fn add_to_listeners_request_message() {
+    let msg = lib::AddToListenersRequestMessage::new();
+    let buf = msg.pack();
+    let msg_unpacked = lib::AddToListenersRequestMessage::unpack(&buf);
+
+    assert_eq!(msg.id(), MessageType::AddToListenersRequest);
+    assert_eq!(msg.id(), msg_unpacked.id());
+}
