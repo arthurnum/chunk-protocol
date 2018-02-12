@@ -20,6 +20,12 @@ pub fn hello() {
 pub fn serialize_float(x: &f32) -> Vec<u8> { bincode::serialize(x, Infinite).unwrap() }
 pub fn deserialize_float(buf: &Vec<u8>) -> f32 { bincode::deserialize(&buf[..]).unwrap() }
 
+pub fn get_message_type(buf: &Vec<u8>) -> Result<MessageType, Box<bincode::ErrorKind>> {
+    if buf.len() < 4 { return Err(Box::new(bincode::ErrorKind::Custom("Buffer to short.".to_string()))) }
+
+    bincode::deserialize::<MessageType>(&buf[0..4])
+}
+
 #[derive(Debug)]
 pub struct StringMessage {
     id: u8,

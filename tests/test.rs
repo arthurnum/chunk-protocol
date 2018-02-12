@@ -45,3 +45,19 @@ fn add_to_listeners_request_message() {
     assert_eq!(msg.id(), MessageType::AddToListenersRequest);
     assert_eq!(msg.id(), msg_unpacked.id());
 }
+
+#[test]
+fn get_message_type() {
+    let buf: Vec<u8> = vec![0, 0, 0, 0];
+    let subject = lib::get_message_type(&buf);
+    assert_eq!(true, subject.is_ok());
+    assert_eq!(MessageType::AddToListenersRequest, subject.unwrap());
+
+    let buf: Vec<u8> = vec![0, 0, 0, 255];
+    let subject = lib::get_message_type(&buf);
+    assert_eq!(true, subject.is_err());
+
+    let buf: Vec<u8> = vec![];
+    let subject = lib::get_message_type(&buf);
+    assert_eq!(true, subject.is_err());
+}
