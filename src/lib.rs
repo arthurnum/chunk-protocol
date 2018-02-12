@@ -126,3 +126,29 @@ impl BaseMessage for AddToListenersRequestMessage {
         AddToListenersRequestMessage::new()
     }
 }
+
+pub struct RemoveFromListenersMessage {
+    _id: MessageType
+}
+
+impl RemoveFromListenersMessage {
+    pub fn new() -> Box<RemoveFromListenersMessage> {
+        Box::new(RemoveFromListenersMessage {
+            _id: MessageType::RemoveFromListeners
+        })
+    }
+}
+
+impl BaseMessage for RemoveFromListenersMessage {
+    fn id(&self) -> MessageType { self._id.clone() }
+
+    fn pack(&self) -> Vec<u8> {
+        let mut buf = Vec::with_capacity(256);
+        buf.append(&mut bincode::serialize(&self._id, Infinite).unwrap());
+        buf
+    }
+
+    fn unpack(_buf: &Vec<u8>) -> Box<RemoveFromListenersMessage> {
+        RemoveFromListenersMessage::new()
+    }
+}

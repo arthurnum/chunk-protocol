@@ -47,6 +47,16 @@ fn add_to_listeners_request_message() {
 }
 
 #[test]
+fn remove_from_listeners_message() {
+    let msg = lib::RemoveFromListenersMessage::new();
+    let buf = msg.pack();
+    let msg_unpacked = lib::RemoveFromListenersMessage::unpack(&buf);
+
+    assert_eq!(msg.id(), MessageType::RemoveFromListeners);
+    assert_eq!(msg.id(), msg_unpacked.id());
+}
+
+#[test]
 fn get_message_type() {
     let buf: Vec<u8> = vec![0, 0, 0, 0];
     let subject = lib::get_message_type(&buf);
