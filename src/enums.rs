@@ -2,5 +2,5 @@
 pub enum MessageType {
     AddToListenersRequest,
     RemoveFromListeners,
-    RoomStatus
+    RoomStatus { number: u8, is_active: bool }
 }
