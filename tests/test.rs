@@ -1,7 +1,6 @@
 extern crate chunk_protocol as lib;
 extern crate bincode;
 
-use bincode::{Infinite};
 use lib::enums::{MessageType};
 
 #[test]
@@ -32,6 +31,26 @@ fn add_to_listeners_request_message() {
     let msg_unpacked = lib::unpack(&buf);
 
     assert_eq!(msg_unpacked, MessageType::AddToListenersRequest);
+    assert_eq!(msg, msg_unpacked);
+}
+
+#[test]
+fn member_in_message() {
+    let msg = MessageType::MemberIn(1);
+    let buf = lib::pack(&msg);
+    let msg_unpacked = lib::unpack(&buf);
+
+    assert_eq!(msg_unpacked, MessageType::MemberIn(1));
+    assert_eq!(msg, msg_unpacked);
+}
+
+#[test]
+fn member_out_message() {
+    let msg = MessageType::MemberOut(1);
+    let buf = lib::pack(&msg);
+    let msg_unpacked = lib::unpack(&buf);
+
+    assert_eq!(msg_unpacked, MessageType::MemberOut(1));
     assert_eq!(msg, msg_unpacked);
 }
 
