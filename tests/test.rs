@@ -48,21 +48,21 @@ fn add_to_listeners_request_message() {
 
 #[test]
 fn member_in_message() {
-    let msg = MessageType::MemberIn(1);
+    let msg = MessageType::MemberIn;
     let buf = lib::pack(&msg);
     let msg_unpacked = lib::unpack(&buf);
 
-    assert_eq!(msg_unpacked, MessageType::MemberIn(1));
+    assert_eq!(msg_unpacked, MessageType::MemberIn);
     assert_eq!(msg, msg_unpacked);
 }
 
 #[test]
 fn member_out_message() {
-    let msg = MessageType::MemberOut(1);
+    let msg = MessageType::MemberOut;
     let buf = lib::pack(&msg);
     let msg_unpacked = lib::unpack(&buf);
 
-    assert_eq!(msg_unpacked, MessageType::MemberOut(1));
+    assert_eq!(msg_unpacked, MessageType::MemberOut);
     assert_eq!(msg, msg_unpacked);
 }
 
