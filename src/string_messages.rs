@@ -1,14 +1,16 @@
-use bincode::{Infinite, serialize, serialized_size, deserialize};
+use bincode::{deserialize, serialize, serialized_size, Infinite};
 
 #[derive(Debug)]
 pub struct StringMessage {
     id: u8,
     text_size: u64,
-    text: String
+    text: String,
 }
 
 impl StringMessage {
-    pub fn text(&self) -> &String { &self.text }
+    pub fn text(&self) -> &String {
+        &self.text
+    }
     pub fn pack(&self) -> Vec<u8> {
         let mut buf = Vec::with_capacity(256);
         buf.push(self.id);
@@ -22,7 +24,7 @@ pub fn new_string_message(text: String) -> Box<StringMessage> {
     Box::new(StringMessage {
         id: 0,
         text_size: serialized_size(&text),
-        text: text
+        text: text,
     })
 }
 
@@ -34,6 +36,6 @@ pub fn unpack_string_message(buf: &Vec<u8>) -> Box<StringMessage> {
     Box::new(StringMessage {
         id: id,
         text_size: text_size,
-        text: text
+        text: text,
     })
 }

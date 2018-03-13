@@ -1,7 +1,7 @@
-extern crate chunk_protocol as lib;
 extern crate bincode;
+extern crate chunk_protocol as lib;
 
-use lib::enums::{MessageType};
+use lib::enums::MessageType;
 
 #[test]
 fn hello() {

@@ -4,5 +4,5 @@ pub enum MessageType {
     MemberIn,
     MemberOut,
     RemoveFromListeners,
-    ServerOn
+    ServerOn,
 }
