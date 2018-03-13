@@ -25,6 +25,18 @@ fn string_message() {
 }
 
 #[test]
+fn sequence() {
+    let mut seq = lib::Sequence::new();
+    seq.add(&MessageType::AddToListenersRequest);
+    seq.add(&MessageType::RoomStatus { number: 1, is_active: true });
+    let buf = seq.seq();
+
+    let subject = lib::Sequence::parse(buf);
+    assert_eq!(subject[0], MessageType::AddToListenersRequest);
+    assert_eq!(subject[1], MessageType::RoomStatus { number: 1, is_active: true });
+}
+
+#[test]
 fn add_to_listeners_request_message() {
     let msg = MessageType::AddToListenersRequest;
     let buf = lib::pack(&msg);
