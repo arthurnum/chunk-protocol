@@ -28,12 +28,12 @@ fn string_message() {
 fn sequence() {
     let mut seq = lib::Sequence::new();
     seq.add(&MessageType::AddToListenersRequest);
-    seq.add(&MessageType::RoomStatus { number: 1, is_active: true });
+    seq.add(&MessageType::ServerOn);
     let buf = seq.seq();
 
     let subject = lib::Sequence::parse(buf);
     assert_eq!(subject[0], MessageType::AddToListenersRequest);
-    assert_eq!(subject[1], MessageType::RoomStatus { number: 1, is_active: true });
+    assert_eq!(subject[1], MessageType::ServerOn);
 }
 
 #[test]
@@ -77,11 +77,11 @@ fn remove_from_listeners_message() {
 }
 
 #[test]
-fn room_status_message() {
-    let msg = MessageType::RoomStatus { number: 1, is_active: true };
+fn server_on_message() {
+    let msg = MessageType::ServerOn;
     let buf = lib::pack(&msg);
     let msg_unpacked = lib::unpack(&buf);
 
-    assert_eq!(msg_unpacked, MessageType::RoomStatus { number: 1, is_active: true });
+    assert_eq!(msg_unpacked, MessageType::ServerOn);
     assert_eq!(msg, msg_unpacked);
 }

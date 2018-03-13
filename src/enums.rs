@@ -4,5 +4,5 @@ pub enum MessageType {
     MemberIn,
     MemberOut,
     RemoveFromListeners,
-    RoomStatus { number: u8, is_active: bool }
+    ServerOn
 }
