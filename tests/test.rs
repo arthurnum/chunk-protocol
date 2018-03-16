@@ -57,12 +57,32 @@ fn member_in_message() {
 }
 
 #[test]
+fn member_move_message() {
+    let msg = MessageType::MemberMove(0.5, 0.5);
+    let buf = lib::pack(&msg);
+    let msg_unpacked = lib::unpack(&buf);
+
+    assert_eq!(msg_unpacked, MessageType::MemberMove(0.5, 0.5));
+    assert_eq!(msg, msg_unpacked);
+}
+
+#[test]
 fn member_out_message() {
     let msg = MessageType::MemberOut;
     let buf = lib::pack(&msg);
     let msg_unpacked = lib::unpack(&buf);
 
     assert_eq!(msg_unpacked, MessageType::MemberOut);
+    assert_eq!(msg, msg_unpacked);
+}
+
+#[test]
+fn member_stop_move_message() {
+    let msg = MessageType::MemberStopMove;
+    let buf = lib::pack(&msg);
+    let msg_unpacked = lib::unpack(&buf);
+
+    assert_eq!(msg_unpacked, MessageType::MemberStopMove);
     assert_eq!(msg, msg_unpacked);
 }
 
